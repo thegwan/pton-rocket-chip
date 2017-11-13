@@ -91,6 +91,7 @@ class IDecode(implicit val p: Parameters) extends DecodeConstants
 
     LUI->       List(Y,N,N,N,N,N,N,N,A2_IMM, A1_ZERO,IMM_U, DW_XPR,FN_ADD,   N,M_X,        MT_X, N,N,N,N,N,Y,CSR.N,N,N,N,N),
     ADDI->      List(Y,N,N,N,N,N,N,Y,A2_IMM, A1_RS1, IMM_I, DW_XPR,FN_ADD,   N,M_X,        MT_X, N,N,N,N,N,Y,CSR.N,N,N,N,N),
+    ADD5->      List(Y,N,N,N,N,N,N,Y,A2_IMM, A1_RS1, IMM_5, DW_XPR,FN_ADD,   N,M_X,        MT_X, N,N,N,N,N,Y,CSR.N,N,N,N,N),
     SLTI ->     List(Y,N,N,N,N,N,N,Y,A2_IMM, A1_RS1, IMM_I, DW_XPR,FN_SLT,   N,M_X,        MT_X, N,N,N,N,N,Y,CSR.N,N,N,N,N),
     SLTIU->     List(Y,N,N,N,N,N,N,Y,A2_IMM, A1_RS1, IMM_I, DW_XPR,FN_SLTU,  N,M_X,        MT_X, N,N,N,N,N,Y,CSR.N,N,N,N,N),
     ANDI->      List(Y,N,N,N,N,N,N,Y,A2_IMM, A1_RS1, IMM_I, DW_XPR,FN_AND,   N,M_X,        MT_X, N,N,N,N,N,Y,CSR.N,N,N,N,N),

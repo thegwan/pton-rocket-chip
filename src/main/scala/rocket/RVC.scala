@@ -20,7 +20,8 @@ class RVCDecoder(x: UInt)(implicit p: Parameters) {
   def inst(bits: UInt, rd: UInt = x(11,7), rs1: UInt = x(19,15), rs2: UInt = x(24,20), rs3: UInt = x(31,27)) = {
     val res = Wire(new ExpandedInstruction)
     res.bits := bits
-    res.rd := rd
+    // res.rd := rd
+    res.rd := Mux(x(6,0) === "b0001011".U, rs1, rd)
     res.rs1 := rs1
     res.rs2 := rs2
     res.rs3 := rs3
@@ -30,7 +31,8 @@ class RVCDecoder(x: UInt)(implicit p: Parameters) {
   def rs1p = Cat(UInt(1,2), x(9,7))
   def rs2p = Cat(UInt(1,2), x(4,2))
   def rs2 = x(6,2)
-  def rd = x(11,7)
+  // def rd = x(11,7)
+  def rd = Mux(x(6,0) === "b0001011".U, x(19,15), x(11,7))
   def addi4spnImm = Cat(x(10,7), x(12,11), x(5), x(6), UInt(0,2))
   def lwImm = Cat(x(5), x(12,10), x(6), UInt(0,2))
   def ldImm = Cat(x(6,5), x(12,10), UInt(0,3))
