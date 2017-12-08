@@ -307,7 +307,6 @@ object CSRs {
   val dcsr = 0x7b0
   val dpc = 0x7b1
   val dscratch = 0x7b2
-  val testreg = 0x7b3
   val mcycle = 0xb00
   val minstret = 0xb02
   val mhpmcounter3 = 0xb03
@@ -437,6 +436,7 @@ object CSRs {
   val mhpmcounter29h = 0xb9d
   val mhpmcounter30h = 0xb9e
   val mhpmcounter31h = 0xb9f
+  val newcsr = 0x050
   val all = {
     val res = collection.mutable.ArrayBuffer[Int]()
     res += fflags
@@ -501,7 +501,6 @@ object CSRs {
     res += dcsr
     res += dpc
     res += dscratch
-    res += testreg
     res += mcycle
     res += minstret
     res += mhpmcounter3
@@ -568,6 +567,7 @@ object CSRs {
     res += marchid
     res += mimpid
     res += mhartid
+    res += newcsr
     res.toArray
   }
   val all32 = {

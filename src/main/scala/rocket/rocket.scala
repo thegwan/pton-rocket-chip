@@ -245,6 +245,7 @@ class Rocket(implicit p: Parameters) extends CoreModule()(p) {
   val id_csr = Mux(id_csr_ren, CSR.R, id_ctrl.csr)
   val id_csr_addr = id_inst(0)(31,20)
   // this is overly conservative
+  // val safe_csrs = CSRs.sscratch :: CSRs.sepc :: CSRs.mscratch :: CSRs.mepc :: CSRs.mcause :: CSRs.mbadaddr :: CSRs.newcsr :: Nil
   val safe_csrs = CSRs.sscratch :: CSRs.sepc :: CSRs.mscratch :: CSRs.mepc :: CSRs.mcause :: CSRs.mbadaddr :: Nil
   val legal_csrs = collection.mutable.LinkedHashSet(CSRs.all:_*)
   val id_csr_flush = id_system_insn || (id_csr_en && !id_csr_ren && !DecodeLogic(id_csr_addr, safe_csrs.map(UInt(_)), (legal_csrs -- safe_csrs).toList.map(UInt(_))))
