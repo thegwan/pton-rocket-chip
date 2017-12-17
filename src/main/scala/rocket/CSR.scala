@@ -240,6 +240,12 @@ class CSRFile(implicit p: Parameters) extends CoreModule()(p)
   val reg_fflags = Reg(UInt(width = 5))
   val reg_frm = Reg(UInt(width = 3))
 
+  val reg_umkcsr = Reg(Bits(width = xLen))
+  val reg_srhcsr0 = Reg(Bits(width = xLen))
+  val reg_srhcsr1 = Reg(Bits(width = xLen))
+  val reg_srhcsr2 = Reg(Bits(width = xLen))
+  val reg_srhcsr3 = Reg(Bits(width = xLen))
+
   val reg_instret = WideCounter(64, io.retire)
   val reg_cycle = if (enableCommitLog) reg_instret else WideCounter(64)
   val reg_hpmevent = Seq.fill(nPerfCounters)(if (nPerfEvents > 1) Reg(UInt(width = log2Ceil(nPerfEvents))) else UInt(0))
@@ -357,6 +363,12 @@ class CSRFile(implicit p: Parameters) extends CoreModule()(p)
     read_mapping += CSRs.mucounteren -> reg_mucounteren
     read_mapping += CSRs.cycle -> reg_cycle
     read_mapping += CSRs.instret -> reg_instret
+
+    read_mapping += CSRs.umkcsr -> reg_umkcsr
+    read_mapping += CSRs.srhcsr0 -> reg_srhcsr0
+    read_mapping += CSRs.srhcsr1 -> reg_srhcsr1
+    read_mapping += CSRs.srhcsr2 -> reg_srhcsr2
+    read_mapping += CSRs.srhcsr3 -> reg_srhcsr3
   }
 
   if (xLen == 32) {
@@ -606,6 +618,11 @@ class CSRFile(implicit p: Parameters) extends CoreModule()(p)
     }
     if (usingUser) {
       when (decoded_addr(CSRs.mucounteren)) { reg_mucounteren := wdata & UInt(delegable_counters) }
+      when (decoded_addr(CSRs.umkcsr)) { reg_umkcsr := wdata }
+      when (decoded_addr(CSRs.srhcsr0)) { reg_srhcsr0 := wdata }
+      when (decoded_addr(CSRs.srhcsr1)) { reg_srhcsr1 := wdata }
+      when (decoded_addr(CSRs.srhcsr2)) { reg_srhcsr2 := wdata }
+      when (decoded_addr(CSRs.srhcsr3)) { reg_srhcsr3 := wdata }
     }
     if (nBreakpoints > 0) {
       when (decoded_addr(CSRs.tselect)) { reg_tselect := wdata }
